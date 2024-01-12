@@ -85,6 +85,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.loginBtn {
+  padding: 10px 20px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
 #otpless-floating-button{
   position: fixed !important;
   top: 50% !important;

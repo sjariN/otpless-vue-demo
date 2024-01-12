@@ -13,5 +13,5 @@ const callback = (otplessUser:any) => {
 </script>
 
 <template>
-  <div></div>
+  <button className="loginBtn" id="otpless" data-custom="true">Login</button>
 </template>
