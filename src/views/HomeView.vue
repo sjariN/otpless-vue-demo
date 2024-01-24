@@ -4,9 +4,10 @@ import { onMounted } from 'vue';
 import {initOTPless} from '@/utils/initOtpless'
 onMounted(() => {
   // Code to execute after the component is mounted
-  initOTPless(handleOtplessData)
+  initOTPless(callback)
 });
-const handleOtplessData = (otplessUser : any) =>{
+
+const callback = (otplessUser : any) =>{
   localStorage.setItem('token',otplessUser.token);
   window.location.href = '/result'
 }
