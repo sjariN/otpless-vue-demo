@@ -1,46 +1,96 @@
-# otpless-demo
+[![OTPless](https://d1j61bbz9a40n6.cloudfront.net/website/home/v4/logo/white_logo.svg)](https://otpless.com/platforms/react)
 
-This template should help get you started developing with Vue 3 in Vite.
+# Vue Demo : Otpless Floater 
 
-## Recommended IDE Setup
+## Steps to add OTPless SDK to your Next Website
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+1. **Add OTPLESS Script as utils function**
 
-## Type Support for `.vue` Imports in TS
+> Add the following code to your utils/initOtpless.ts in root directory.
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+```JavaScript
+export const initOTPless = (callback: Function) => {
+  const otplessInit = Reflect.get(window, 'otplessInit')
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+  const loadScript = () => {
+    const isScriptLoaded = document.getElementById('otplessIdScript')
+    if (isScriptLoaded) return
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+    const script = document.createElement('script')
+    script.src = 'https://otpless.com/auth.js'
+    script.id = 'otplessIdScript'
+    script.setAttribute('cid', 'YOUR_CID')
+    document.body.appendChild(script)
+  }
 
-## Customize configuration
+  console.log("Calling function:", otplessInit ? "otplessInit()" : "loadScript()");
+  otplessInit ? otplessInit() : loadScript()
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
+  Reflect.set(window, 'otpless', callback)
+}
 ```
 
-### Compile and Hot-Reload for Development
+2. **Load the script in Login/Signup component and add callback function**
 
-```sh
-npm run dev
+> - Add following code in Login/Signup component.
+> - retrive data using **otplessUser** object
+
+```jsx
+onMounted(() => {
+  initOTPless(callback)
+})
+
+const callback = (otplessUser:any) => {
+    alert({otplessUser});
+    // Your code here
+  };
 ```
 
-### Type-Check, Compile and Minify for Production
+### This demo implementation adds extra modularity, scalability and reusability to the otpless-auth sdk
 
-```sh
-npm run build
-```
 
-### Lint with [ESLint](https://eslint.org/)
+### Integration Options
 
-```sh
-npm run lint
+- [OTPless-Page](https://github.com/sjariN/otpless-vue-demo)
+- [OTPless-Page-OnClick](https://github.com/sjariN/otpless-vue-demo/tree/on-button-click-login-page)
+- [OTPless-Floater](https://github.com/sjariN/otpless-vue-demo/tree/floater)
+- [OTPless-Floater-OnClick](https://github.com/sjariN/otpless-vue-demo/tree/on-button-click-floater)
+
+### Usage
+
+> **Prequisite** [NodeJS](https://nodejs.org/en)
+
+- Install Packages
+
+    ```bash
+    npm install
+    ```
+
+- Run the demo
+
+    ```bash
+    npm run dev
+    ```
+
+- Open [localhost:5173](http://localhost:5173) in your browser
+- Switch branches to check out available options to integrate *OTPless* in your project.
+
+
+> Received User Data Format  
+
+```json
+// otpless user Format
+{
+    "token": "xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "timestamp": "YYYY-MM-DD HH:MM:SS",
+    "timezone": "+XX:XX",
+    "mobile": {
+        "name": "User Name",
+        "number": "User Mobile Number"
+    },
+    "email": {
+        "name": "User Name ",
+        "email": "User Email"
+    }
+}
 ```
