@@ -6,13 +6,12 @@ export const initOTPless = (callback: Function) => {
     if (isScriptLoaded) return
 
     const script = document.createElement('script')
-    script.src = 'https://otpless.com/auth.js'
-    script.id = 'otplessIdScript'
-    script.setAttribute('cid', 'YOUR_CID')
+    script.src = 'https://otpless.com/v2/auth.js'
+    script.id = 'otpless-sdk'
+    script.setAttribute('data-appid', 'UMRHG2LU2DD6CHMMQCJR')
     document.body.appendChild(script)
   }
 
-  console.log("Calling function:", otplessInit ? "otplessInit()" : "loadScript()");
   otplessInit ? otplessInit() : loadScript()
 
   Reflect.set(window, 'otpless', callback)
