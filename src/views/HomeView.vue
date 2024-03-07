@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted } from 'vue'
 //@ts-ignore
-import {initOTPless} from '@/utils/initOtpless'
+import { initOTPless } from '@/utils/initOtpless'
 onMounted(() => {
   // Code to execute after the component is mounted
   initOTPless(callback)
-});
+})
 
-const callback = (otplessUser : any) =>{
-  localStorage.setItem('token',otplessUser.token);
+const callback = (otplessUser: any) => {
+  localStorage.setItem('token', otplessUser.token)
   window.location.href = '/result'
 }
 </script>
