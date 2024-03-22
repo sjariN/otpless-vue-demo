@@ -1,6 +1,6 @@
 [![OTPless](https://d1j61bbz9a40n6.cloudfront.net/website/home/v4/logo/white_logo.svg)](https://otpless.com/platforms/react)
 
-# Vue Demo : Otpless Floater 
+# Vue Demo : Otpless Floater
 
 ## Steps to add OTPless SDK to your Next Website
 
@@ -13,17 +13,16 @@ export const initOTPless = (callback: Function) => {
   const otplessInit = Reflect.get(window, 'otplessInit')
 
   const loadScript = () => {
-    const isScriptLoaded = document.getElementById('otplessIdScript')
+    const isScriptLoaded = document.getElementById('otpless-sdk')
     if (isScriptLoaded) return
 
     const script = document.createElement('script')
-    script.src = 'https://otpless.com/auth.js'
-    script.id = 'otplessIdScript'
-    script.setAttribute('cid', 'YOUR_CID')
+    script.src = 'https://otpless.com/v2/auth.js'
+    script.id = 'otpless-sdk'
+    script.setAttribute('data-appid', 'YOUR_DATA_APPID')
     document.body.appendChild(script)
   }
 
-  console.log("Calling function:", otplessInit ? "otplessInit()" : "loadScript()");
   otplessInit ? otplessInit() : loadScript()
 
   Reflect.set(window, 'otpless', callback)
@@ -48,7 +47,6 @@ const callback = (otplessUser:any) => {
 
 ### This demo implementation adds extra modularity, scalability and reusability to the otpless-auth sdk
 
-
 ### Integration Options
 
 - [OTPless-Page](https://github.com/sjariN/otpless-vue-demo)
@@ -62,35 +60,34 @@ const callback = (otplessUser:any) => {
 
 - Install Packages
 
-    ```bash
-    npm install
-    ```
+  ```bash
+  npm install
+  ```
 
 - Run the demo
 
-    ```bash
-    npm run dev
-    ```
+  ```bash
+  npm run dev
+  ```
 
 - Open [localhost:5173](http://localhost:5173) in your browser
-- Switch branches to check out available options to integrate *OTPless* in your project.
+- Switch branches to check out available options to integrate _OTPless_ in your project.
 
-
-> Received User Data Format  
+> Received User Data Format
 
 ```json
 // otpless user Format
 {
-    "token": "xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-    "timestamp": "YYYY-MM-DD HH:MM:SS",
-    "timezone": "+XX:XX",
-    "mobile": {
-        "name": "User Name",
-        "number": "User Mobile Number"
-    },
-    "email": {
-        "name": "User Name ",
-        "email": "User Email"
-    }
+  "token": "xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "timestamp": "YYYY-MM-DD HH:MM:SS",
+  "timezone": "+XX:XX",
+  "mobile": {
+    "name": "User Name",
+    "number": "User Mobile Number"
+  },
+  "email": {
+    "name": "User Name ",
+    "email": "User Email"
+  }
 }
 ```
