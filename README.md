@@ -13,17 +13,16 @@ export const initOTPless = (callback: Function) => {
   const otplessInit = Reflect.get(window, 'otplessInit')
 
   const loadScript = () => {
-    const isScriptLoaded = document.getElementById('otplessIdScript')
+    const isScriptLoaded = document.getElementById('otpless-sdk')
     if (isScriptLoaded) return
 
     const script = document.createElement('script')
-    script.src = 'https://otpless.com/auth.js'
-    script.id = 'otplessIdScript'
-    script.setAttribute('cid', 'YOUR_CID')
+    script.src = 'https://otpless.com/v2/auth.js'
+    script.id = 'otpless-sdk'
+    script.setAttribute('data-appid', 'YOUR_DATA_APPID')
     document.body.appendChild(script)
   }
 
-  console.log("Calling function:", otplessInit ? "otplessInit()" : "loadScript()");
   otplessInit ? otplessInit() : loadScript()
 
   Reflect.set(window, 'otpless', callback)
@@ -45,13 +44,17 @@ const callback = (otplessUser : any) =>{
   alert({otplessUser})
 }
 ```
+
 3. **Add Otpless-login-page Button**
 
 > Add the following Button in Login/Signup component.
 
 ```jsx
-<button className="loginBtn" id="otpless" data-custom="true">Login</button>
+<button className="loginBtn" id="otpless" data-custom="true">
+  Login
+</button>
 ```
+
 4. **Add following code in global css file. [OPTIONAL]**
 
 ```css
@@ -67,15 +70,15 @@ const callback = (otplessUser : any) =>{
 }
 
 /* center the otpless floater */
-#otpless-floating-button{
+#otpless-floating-button {
   position: fixed !important;
   top: 50% !important;
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
 }
 ```
-### This demo implementation adds extra modularity, scalability and reusability to the otpless-auth sdk
 
+### This demo implementation adds extra modularity, scalability and reusability to the otpless-auth sdk
 
 ### Integration Options
 
@@ -90,35 +93,34 @@ const callback = (otplessUser : any) =>{
 
 - Install Packages
 
-    ```bash
-    npm install
-    ```
+  ```bash
+  npm install
+  ```
 
 - Run the demo
 
-    ```bash
-    npm run dev
-    ```
+  ```bash
+  npm run dev
+  ```
 
 - Open [localhost:5173](http://localhost:5173) in your browser
-- Switch branches to check out available options to integrate *OTPless* in your project.
+- Switch branches to check out available options to integrate _OTPless_ in your project.
 
-
-> Received User Data Format  
+> Received User Data Format
 
 ```json
 // otpless user Format
 {
-    "token": "xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-    "timestamp": "YYYY-MM-DD HH:MM:SS",
-    "timezone": "+XX:XX",
-    "mobile": {
-        "name": "User Name",
-        "number": "User Mobile Number"
-    },
-    "email": {
-        "name": "User Name ",
-        "email": "User Email"
-    }
+  "token": "xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "timestamp": "YYYY-MM-DD HH:MM:SS",
+  "timezone": "+XX:XX",
+  "mobile": {
+    "name": "User Name",
+    "number": "User Mobile Number"
+  },
+  "email": {
+    "name": "User Name ",
+    "email": "User Email"
+  }
 }
 ```

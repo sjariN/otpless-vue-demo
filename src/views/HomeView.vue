@@ -6,10 +6,10 @@ onMounted(() => {
   initOTPless(callback)
 })
 
-const callback = (otplessUser:any) => {
-    localStorage.setItem('token',otplessUser.token);
-    (window as any).location.href = "/result";
-  };
+const callback = (otplessUser: any) => {
+  localStorage.setItem('token', otplessUser.token)
+  ;(window as any).location.href = '/result'
+}
 </script>
 
 <template>
